@@ -1,85 +1,169 @@
 @server_HostAddress = http://localhost:5064
 
-### Get all users
+### =========================
+
+### GET - All Users
+
+### =========================
+
 GET {{server_HostAddress}}/api/users
 Accept: application/json
 
 ###
 
-### Get user by ID - existing user
+### =========================
+
+### GET - User By ID
+
+### =========================
+
+### Existing user
+
 GET {{server_HostAddress}}/api/users/1
 Accept: application/json
 
 ###
 
-### Get user by ID - another existing user
+### Another existing user
+
 GET {{server_HostAddress}}/api/users/2
 Accept: application/json
 
 ###
 
-### Get user by ID - user not found
+### User not found
+
 GET {{server_HostAddress}}/api/users/99
 Accept: application/json
 
 ###
 
+### =========================
+
+### POST - Create User
+
+### =========================
+
 ### Create user - valid request
+
 POST {{server_HostAddress}}/api/users
 Content-Type: application/json
 
 {
-    "name": "Rahul",
-    "email": "rahul@gmail.com"
+"name": "Rahul",
+"email": "[rahul@gmail.com](mailto:rahul@gmail.com)"
 }
 
 ###
 
-### Create user - another valid request
+### Create another user
+
 POST {{server_HostAddress}}/api/users
 Content-Type: application/json
 
 {
-    "name": "Priya",
-    "email": "priya@gmail.com"
+"name": "Priya",
+"email": "[priya@gmail.com](mailto:priya@gmail.com)"
 }
 
 ###
 
 ### Create user - empty name
+
 POST {{server_HostAddress}}/api/users
 Content-Type: application/json
 
 {
-    "name": "",
-    "email": "test@gmail.com"
+"name": "",
+"email": "[test@gmail.com](mailto:test@gmail.com)"
 }
 
 ###
 
 ### Create user - empty email
+
 POST {{server_HostAddress}}/api/users
 Content-Type: application/json
 
 {
-    "name": "Test User",
-    "email": ""
+"name": "Test User",
+"email": ""
 }
 
 ###
 
 ### Create user - both empty
+
 POST {{server_HostAddress}}/api/users
 Content-Type: application/json
 
 {
-    "name": "",
-    "email": ""
+"name": "",
+"email": ""
 }
 
-GET {{server_HostAddress}}/api/products
-Accept: application/json
 ###
 
-GET {{server_HostAddress}}/api/products/3
-Accept: application/json
+### =========================
+
+### PUT - Update User
+
+### =========================
+
+### Update existing user
+
+PUT {{server_HostAddress}}/api/users/1
+Content-Type: application/json
+
+{
+"name": "Arjun Updated",
+"email": "[arjun.updated@gmail.com](mailto:arjun.updated@gmail.com)"
+}
+
+###
+
+### Update another existing user
+
+PUT {{server_HostAddress}}/api/users/3
+Content-Type: application/json
+
+{
+"name": "Rahul Updated",
+"email": "[rahul.updated@gmail.com](mailto:rahul.updated@gmail.com)"
+}
+
+###
+
+### Update user that doesn't exist
+
+PUT {{server_HostAddress}}/api/users/99
+Content-Type: application/json
+
+{
+"name": "Unknown User",
+"email": "[unknown@gmail.com](mailto:unknown@gmail.com)"
+}
+
+###
+
+### =========================
+
+### DELETE - Delete User
+
+### =========================
+
+### Delete existing user
+
+DELETE {{server_HostAddress}}/api/users/3
+
+###
+
+### Delete another existing user
+
+DELETE {{server_HostAddress}}/api/users/1
+
+###
+
+### Delete user that doesn't exist
+
+DELETE {{server_HostAddress}}/api/users/99
