@@ -1,0 +1,85 @@
+@server_HostAddress = http://localhost:5064
+
+### Get all users
+GET {{server_HostAddress}}/api/users
+Accept: application/json
+
+###
+
+### Get user by ID - existing user
+GET {{server_HostAddress}}/api/users/1
+Accept: application/json
+
+###
+
+### Get user by ID - another existing user
+GET {{server_HostAddress}}/api/users/2
+Accept: application/json
+
+###
+
+### Get user by ID - user not found
+GET {{server_HostAddress}}/api/users/99
+Accept: application/json
+
+###
+
+### Create user - valid request
+POST {{server_HostAddress}}/api/users
+Content-Type: application/json
+
+{
+    "name": "Rahul",
+    "email": "rahul@gmail.com"
+}
+
+###
+
+### Create user - another valid request
+POST {{server_HostAddress}}/api/users
+Content-Type: application/json
+
+{
+    "name": "Priya",
+    "email": "priya@gmail.com"
+}
+
+###
+
+### Create user - empty name
+POST {{server_HostAddress}}/api/users
+Content-Type: application/json
+
+{
+    "name": "",
+    "email": "test@gmail.com"
+}
+
+###
+
+### Create user - empty email
+POST {{server_HostAddress}}/api/users
+Content-Type: application/json
+
+{
+    "name": "Test User",
+    "email": ""
+}
+
+###
+
+### Create user - both empty
+POST {{server_HostAddress}}/api/users
+Content-Type: application/json
+
+{
+    "name": "",
+    "email": ""
+}
+
+GET {{server_HostAddress}}/api/products
+Accept: application/json
+###
+
+GET {{server_HostAddress}}/api/products/3
+Accept: application/json
