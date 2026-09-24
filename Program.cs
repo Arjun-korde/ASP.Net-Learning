@@ -1,5 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using server.Data;
+using server.Services;
+
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<AppDbContext>(options => 
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
     );
+builder.Services.AddScoped<UserService>();
 
 var app = builder.Build();
 
