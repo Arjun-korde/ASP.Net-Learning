@@ -4,15 +4,13 @@ using server.Models;
 
 using System;
 using Microsoft.EntityFrameworkCore;
-using server.Services;
-
 namespace server.Services;
 
 public class UserService : IUserService
 {
     private readonly AppDbContext _db;
 
-    UserService(AppDbContext db)
+    public UserService(AppDbContext db)
     {
         _db = db;
     }
