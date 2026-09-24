@@ -4,10 +4,11 @@ using server.Models;
 
 using System;
 using Microsoft.EntityFrameworkCore;
+using server.Services;
 
 namespace server.Services;
 
-public class UserService
+public class UserService : IUserService
 {
     private readonly AppDbContext _db;
 
