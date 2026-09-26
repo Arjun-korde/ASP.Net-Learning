@@ -33,6 +33,11 @@ public class JwtService : IJwtService
             new Claim(
                 ClaimTypes.Name,
                 user.Name
+            ),
+
+            new Claim(
+                ClaimTypes.Role,
+                user.Role
             )
 
         };

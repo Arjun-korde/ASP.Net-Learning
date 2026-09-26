@@ -8,7 +8,7 @@
 
 GET {{server_HostAddress}}/api/users
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2IiwiZW1haWwiOiJhcmp1bkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQXJqdW4iLCJleHAiOjE3OTAzNDI5MTgsImlzcyI6InNlcnZlciIsImF1ZCI6InNlcnZlckNsaWVudCJ9.IJevM6rrwi2N1GTyqLTA-b7x63ppFVq0-Zm7ljY2zGw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2IiwiZW1haWwiOiJhcmp1bkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQXJqdW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTc5MDQwOTQyNCwiaXNzIjoic2VydmVyIiwiYXVkIjoic2VydmVyQ2xpZW50In0.lky0kz9p5n-4Uozbb7Cygiy_N2k-0RfxZax1mEnPsvo
 ###
 
 ### =========================
@@ -48,10 +48,12 @@ Accept: application/json
 
 POST {{server_HostAddress}}/api/users
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1IiwiZW1haWwiOiJheXVzaEBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQXl1c2giLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiIiLCJleHAiOjE3OTA0MDkwNjIsImlzcyI6InNlcnZlciIsImF1ZCI6InNlcnZlckNsaWVudCJ9.N0J6yQMZ9XsJWZ_LswCB2nbgggDOvRwckcB9tGQC260
+
 
 {
 "name": "Rahul",
-"email": "[rahul@gmail.com](mailto:rahul@gmail.com)"
+"email": "rahul@gmail.com"
 }
 
 ###
@@ -112,8 +114,9 @@ Content-Type: application/json
 
 ### Update existing user
 
-PUT {{server_HostAddress}}/api/users/1
+GEt {{server_HostAddress}}/api/users/7
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1IiwiZW1haWwiOiJheXVzaEBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQXl1c2giLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiIiLCJleHAiOjE3OTA0MDkwNjIsImlzcyI6InNlcnZlciIsImF1ZCI6InNlcnZlckNsaWVudCJ9.N0J6yQMZ9XsJWZ_LswCB2nbgggDOvRwckcB9tGQC260
 
 {
 "name": "Arjun",
@@ -154,7 +157,9 @@ Content-Type: application/json
 
 ### Delete existing user
 
-DELETE {{server_HostAddress}}/api/users/3
+DELETE {{server_HostAddress}}/api/users/8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2IiwiZW1haWwiOiJhcmp1bkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQXJqdW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTc5MDQwOTQyNCwiaXNzIjoic2VydmVyIiwiYXVkIjoic2VydmVyQ2xpZW50In0.lky0kz9p5n-4Uozbb7Cygiy_N2k-0RfxZax1mEnPsvo
+
 
 ###
 

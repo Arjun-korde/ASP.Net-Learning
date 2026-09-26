@@ -69,6 +69,8 @@ namespace server.Controllers
             return Ok(user);
         }
 
+        // [Authorize(Roles = "Admin")]
+        [Authorize(Policy = "AdminOnly")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
