@@ -8,7 +8,7 @@
 
 GET {{server_HostAddress}}/api/users
 Accept: application/json
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2IiwiZW1haWwiOiJhcmp1bkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQXJqdW4iLCJleHAiOjE3OTAzNDI5MTgsImlzcyI6InNlcnZlciIsImF1ZCI6InNlcnZlckNsaWVudCJ9.IJevM6rrwi2N1GTyqLTA-b7x63ppFVq0-Zm7ljY2zGw
 ###
 
 ### =========================
@@ -116,8 +116,8 @@ PUT {{server_HostAddress}}/api/users/1
 Content-Type: application/json
 
 {
-"name": "Arjun Updated",
-"email": "[arjun.updated@gmail.com](mailto:arjun.updated@gmail.com)"
+"name": "Arjun",
+"email": "arjun@gmail.com"
 }
 
 ###
@@ -160,7 +160,7 @@ DELETE {{server_HostAddress}}/api/users/3
 
 ### Delete another existing user
 
-DELETE {{server_HostAddress}}/api/users/1
+DELETE {{server_HostAddress}}/api/users/4
 
 ###
 

@@ -1,0 +1,68 @@
+@server_HostAddress = http://localhost:5064
+
+### Register - valid user
+POST {{server_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+    "name": "Arjun",
+    "email": "arjun@gmail.com",
+    "password": "Password@123"
+}
+
+###
+
+### Register - another user
+POST {{server_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+    "name": "Ayush",
+    "email": "ayush@gmail.com",
+    "password": "Password@123"
+}
+
+###
+
+### Register - duplicate email
+POST {{server_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+    "name": "Arjun Duplicate",
+    "email": "arjun@gmail.com",
+    "password": "Password@123"
+}
+
+###
+
+### Login - valid credentials
+POST {{server_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "arjun@gmail.com",
+    "password": "Password@123"
+}
+
+###
+
+### Login - wrong password
+POST {{server_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "arjun@gmail.com",
+    "password": "WrongPassword"
+}
+
+###
+
+### Login - non-existing user
+POST {{server_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "doesnotexist@gmail.com",
+    "password": "Password@123"
+}
