@@ -1,11 +1,11 @@
 using server.Models;
-using server.DTOs;
 using server.Data;
 using server.Services;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using server.DTOs.Users;
 
 
 namespace server.Controllers

@@ -2,7 +2,7 @@ using System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using server.Data;
-using server.DTOs;
+using server.DTOs.Auth;
 using server.Exceptions;
 using server.Models;
 

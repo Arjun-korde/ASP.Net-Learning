@@ -1,5 +1,5 @@
 using System;
-using server.DTOs;
+using server.DTOs.Auth;
 
 namespace server.Services;
 
