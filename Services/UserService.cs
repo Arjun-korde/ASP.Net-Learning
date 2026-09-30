@@ -10,66 +10,92 @@ namespace server.Services;
 public class UserService : IUserService
 {
     private readonly AppDbContext _db;
+    private readonly ILogger<UserService> _logger;
 
-    public UserService(AppDbContext db)
+    public UserService(
+        AppDbContext db,
+        ILogger<UserService> logger)
     {
         _db = db;
+        _logger = logger;
     }
 
-    public async Task<List<UserResponse>> GetUsersAsync()
+    private static UserResponse MapToResponse(User user)
     {
-        var users = await _db.Users.ToListAsync();
-
-        return users.Select(user => new UserResponse
+        return new UserResponse
         {
             Id = user.Id,
             Name = user.Name,
-            Email = user.Email
-        }).ToList();
+            Email = user.Email,
+            Role = user.Role,
+            CreatedAt = user.CreatedAt
+        };
     }
 
-    public async Task<UserResponse?> GetUserAsync(int id)
+    public async Task<List<UserResponse>> GetAllAsync()
+    {
+        var users = await _db.Users
+            .AsNoTracking()
+            .ToListAsync();
+
+        return users
+            .Select(MapToResponse)
+            .ToList();
+    }
+
+    public async Task<UserResponse?> GetByIdAsync(int id)
     {
         var user = await _db.Users
             .FirstOrDefaultAsync(x => x.Id == id);
 
         if (user == null)
         {
-           throw new NotFoundException(
-            $"User with ID {id} was not found"
-           );
+            throw new NotFoundException(
+             $"User with ID {id} was not found"
+            );
         }
 
-        return new UserResponse
-        {
-            Id = user.Id,
-            Name = user.Name,
-            Email = user.Email
-        };
+        return MapToResponse(user);
     }
 
-    public async Task<UserResponse> CreateUserAsync(
+    public async Task<UserResponse> CreateAsync(
     CreateUserRequest request)
     {
+        _logger.LogInformation(
+            "Creating user with email {Email}",
+            request.Email
+        );
+
+        var emailExists = await _db.Users
+            .AnyAsync(x => x.Email == request.Email);
+
+        if (emailExists)
+        {
+            throw new ConflictException(
+                "A user with this email already exists.");
+        }
+
         var user = new User
         {
             Name = request.Name,
-            Email = request.Email
+            Email = request.Email,
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(
+                request.Password),
+            Role = "User"
         };
 
         _db.Users.Add(user);
 
         await _db.SaveChangesAsync();
 
-        return new UserResponse
-        {
-            Id = user.Id,
-            Name = user.Name,
-            Email = user.Email
-        };
+        _logger.LogInformation(
+            "User {UserId} created.",
+            user.Id);
+
+        return MapToResponse(user);
     }
 
-    public async Task<UserResponse?> UpdateUserAsync(
+    public async Task<UserResponse?> UpdateAsync(
     int id,
     UpdateUserRequest request)
     {
@@ -78,37 +104,45 @@ public class UserService : IUserService
 
         if (user == null)
         {
-            return null;
+            throw new NotFoundException(
+                $"User with ID {id} was not found."
+            );
         }
 
-        user.Name = request.Name;
-        user.Email = request.Email;
+        var emailExists = await _db.Users
+            .AnyAsync(x =>
+                x.Email == request.Email &&
+                x.Id != id);
+
+        if (emailExists)
+        {
+            throw new ConflictException(
+                "A user with this email already exists.");
+        }
 
         await _db.SaveChangesAsync();
 
-        return new UserResponse
-        {
-            Id = user.Id,
-            Name = user.Name,
-            Email = user.Email
-        };
+        return MapToResponse(user);
     }
 
-    public async Task<bool> DeleteUserAsync(int id)
+    public async Task DeleteAsync(int id)
     {
         var user = await _db.Users
             .FirstOrDefaultAsync(x => x.Id == id);
 
         if (user == null)
         {
-            return false;
+            throw new NotFoundException(
+                $"User with ID {id} was not found.");
         }
 
         _db.Users.Remove(user);
 
         await _db.SaveChangesAsync();
 
-        return true;
+        _logger.LogInformation(
+            "User {UserId} deleted.",
+            id);
     }
 
 }

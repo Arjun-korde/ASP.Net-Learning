@@ -26,7 +26,7 @@ namespace server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            var users = await _userService.GetUsersAsync();
+            var users = await _userService.GetAllAsync();
 
             return Ok(users);
         }
@@ -34,7 +34,7 @@ namespace server.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(int id)
         {
-            var user = await _userService.GetUserAsync(id);
+            var user = await _userService.GetByIdAsync(id);
 
             return Ok(user);
         }
@@ -43,7 +43,7 @@ namespace server.Controllers
         public async Task<IActionResult> CreateUser(CreateUserRequest request)
         {
 
-            var user = await _userService.CreateUserAsync(request);
+            var user = await _userService.CreateAsync(request);
 
             return CreatedAtAction(
                 nameof(GetUser),
@@ -56,7 +56,7 @@ namespace server.Controllers
         public async Task<IActionResult> UpdateUser(int id,
         UpdateUserRequest request)
         {
-            var user = await _userService.UpdateUserAsync(id, request);
+            var user = await _userService.UpdateAsync(id, request);
 
             if (user == null)
             {
@@ -71,9 +71,9 @@ namespace server.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            bool user = await _userService.DeleteUserAsync(id);
+            await _userService.DeleteAsync(id);
 
-            return user ? NoContent() : NotFound();
+            return NoContent();
         }
     }
 }

@@ -4,16 +4,16 @@ namespace server.Services;
 
 public interface IUserService
 {
-    Task<List<UserResponse>> GetUsersAsync();
+    Task<List<UserResponse>> GetAllAsync();
 
-    Task<UserResponse?> GetUserAsync(int id);
+    Task<UserResponse?> GetByIdAsync(int id);
 
-    Task<UserResponse> CreateUserAsync(
+    Task<UserResponse> CreateAsync(
         CreateUserRequest request);
 
-    Task<UserResponse?> UpdateUserAsync(
+    Task<UserResponse?> UpdateAsync(
         int id,
         UpdateUserRequest request);
 
-    Task<bool> DeleteUserAsync(int id);
+    Task DeleteAsync(int id);
 }
