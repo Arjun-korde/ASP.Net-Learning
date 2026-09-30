@@ -36,9 +36,6 @@ namespace server.Controllers
         {
             var user = await _userService.GetUserAsync(id);
 
-            if (user == null)
-                return NotFound();
-
             return Ok(user);
         }
 

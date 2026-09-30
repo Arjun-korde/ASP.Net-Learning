@@ -4,6 +4,7 @@ using server.Models;
 
 using System;
 using Microsoft.EntityFrameworkCore;
+using server.Exceptions;
 namespace server.Services;
 
 public class UserService : IUserService
@@ -34,7 +35,9 @@ public class UserService : IUserService
 
         if (user == null)
         {
-            return null;
+           throw new NotFoundException(
+            $"User with ID {id} was not found"
+           );
         }
 
         return new UserResponse

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using server.Data;
 using server.DTOs;
+using server.Exceptions;
 using server.Models;
 
 namespace server.Services;
@@ -30,7 +31,7 @@ public class AuthService : IAuthService
 
         if(emailExists)
         {
-            throw new InvalidOperationException(
+            throw new ConflictException(
                 "Email is already registered."
             );
         }
