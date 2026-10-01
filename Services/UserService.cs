@@ -5,6 +5,8 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using server.Exceptions;
 using server.DTOs.Users;
+using Microsoft.AspNetCore.Mvc;
+using server.DTOs.Common;
 namespace server.Services;
 
 public class UserService : IUserService
@@ -32,15 +34,67 @@ public class UserService : IUserService
         };
     }
 
-    public async Task<List<UserResponse>> GetAllAsync()
+    public async Task<PagedResult<UserResponse>> GetAllAsync(UserQuery query)
     {
-        var users = await _db.Users
-            .AsNoTracking()
+        var page = Math.Max(query.Page, 1);
+
+        var pageSize = Math.Clamp(
+            query.PageSize,
+            1,
+            100
+        );
+
+        var baseQuery = _db.Users.AsNoTracking();
+
+        if(!string.IsNullOrWhiteSpace(query.Search))
+        {
+            var search = query.Search.Trim();
+
+            baseQuery = baseQuery.Where( u =>
+                u.Name.Contains(search) ||
+                u.Email.Contains(search));
+        }
+
+        if(!string.IsNullOrWhiteSpace(query.Role))
+        {
+            baseQuery = baseQuery.Where( 
+                u => u.Role == query.Role
+            );
+        }
+
+        baseQuery = query.SortBy?.ToLower() switch
+        {
+            "name" => 
+                query.SortOrder == "desc"
+                ? baseQuery.OrderByDescending(u => u.Name)
+                : baseQuery.OrderBy(u => u.Name),
+
+                "createdat" => 
+                    query.SortOrder == "desc"
+                    ? baseQuery.OrderByDescending(u => u.CreatedAt)
+                    : baseQuery.OrderBy(u => u.CreatedAt),
+
+                _ => 
+                    baseQuery.OrderBy( u => u.Id)
+        };
+
+        var totalCount = await baseQuery.CountAsync();
+
+        var users = await baseQuery
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
             .ToListAsync();
 
-        return users
+        return new PagedResult<UserResponse>
+        {
+            Items = users
             .Select(MapToResponse)
-            .ToList();
+            .ToList(),
+
+            Page = page,
+            PageSize = pageSize,
+            TotalCount = totalCount
+        };
     }
 
     public async Task<UserResponse?> GetByIdAsync(int id)

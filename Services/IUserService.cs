@@ -1,10 +1,11 @@
+using server.DTOs.Common;
 using server.DTOs.Users;
 
 namespace server.Services;
 
 public interface IUserService
 {
-    Task<List<UserResponse>> GetAllAsync();
+    Task<PagedResult<UserResponse>> GetAllAsync(UserQuery query);
 
     Task<UserResponse?> GetByIdAsync(int id);
 
