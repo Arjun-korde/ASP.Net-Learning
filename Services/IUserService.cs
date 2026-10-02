@@ -12,7 +12,7 @@ public interface IUserService
     Task<UserResponse> CreateAsync(
         CreateUserRequest request);
 
-    Task<UserResponse?> UpdateAsync(
+    Task<UserResponse> UpdateAsync(
         int id,
         UpdateUserRequest request);
 

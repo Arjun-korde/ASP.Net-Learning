@@ -7,19 +7,23 @@ using server.Exceptions;
 using server.DTOs.Users;
 using Microsoft.AspNetCore.Mvc;
 using server.DTOs.Common;
+using Microsoft.Extensions.Caching.Memory;
 namespace server.Services;
 
 public class UserService : IUserService
 {
     private readonly AppDbContext _db;
+    private readonly IMemoryCache _cache;
     private readonly ILogger<UserService> _logger;
 
     public UserService(
         AppDbContext db,
-        ILogger<UserService> logger)
+        ILogger<UserService> logger,
+        IMemoryCache cache)
     {
         _db = db;
         _logger = logger;
+        _cache = cache;
     }
 
     private static UserResponse MapToResponse(User user)
@@ -99,6 +103,20 @@ public class UserService : IUserService
 
     public async Task<UserResponse?> GetByIdAsync(int id)
     {
+        var cacheKey = $"user:{id}";
+
+        if(_cache.TryGetValue(cacheKey, out UserResponse? cachedUser))
+        {
+            _logger.LogInformation(
+                $"CACHE HIT WITH KEY : {cacheKey}"
+            );
+            return cachedUser;
+        }
+
+        _logger.LogInformation(
+            $"CACHE MISS WITH KEY : {id}"
+        );        
+
         var user = await _db.Users
             .FirstOrDefaultAsync(x => x.Id == id);
 
@@ -108,6 +126,11 @@ public class UserService : IUserService
              $"User with ID {id} was not found"
             );
         }
+
+        _cache.Set(
+            cacheKey, 
+            MapToResponse(user),
+            TimeSpan.FromMinutes(2));
 
         return MapToResponse(user);
     }
@@ -149,14 +172,14 @@ public class UserService : IUserService
         return MapToResponse(user);
     }
 
-    public async Task<UserResponse?> UpdateAsync(
+    public async Task<UserResponse> UpdateAsync(
     int id,
     UpdateUserRequest request)
     {
         var user = await _db.Users
             .FirstOrDefaultAsync(x => x.Id == id);
 
-        if (user == null)
+        if (user is null)
         {
             throw new NotFoundException(
                 $"User with ID {id} was not found."
@@ -165,7 +188,7 @@ public class UserService : IUserService
 
         var emailExists = await _db.Users
             .AnyAsync(x =>
-                x.Email == request.Email &&
+                x.Email == request.Email.Trim() &&
                 x.Id != id);
 
         if (emailExists)
@@ -174,6 +197,11 @@ public class UserService : IUserService
                 "A user with this email already exists.");
         }
 
+        user.Name = request.Name.Trim();
+        user.Email = request.Email.Trim();
+
+        _cache.Remove($"user:{user.Id}");
+        
         await _db.SaveChangesAsync();
 
         return MapToResponse(user);
@@ -193,6 +221,8 @@ public class UserService : IUserService
         _db.Users.Remove(user);
 
         await _db.SaveChangesAsync();
+
+        _cache.Remove($"user:{id}");
 
         _logger.LogInformation(
             "User {UserId} deleted.",

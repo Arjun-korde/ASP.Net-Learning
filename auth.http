@@ -5,8 +5,8 @@ POST {{server_HostAddress}}/api/auth/register
 Content-Type: application/json
 
 {
-    "name": "Arjun",
-    "email": "arjun@gmail.com",
+    "name": "Kekan",
+    "email": "kekan@gmail.com",
     "password": "Password@123"
 }
 

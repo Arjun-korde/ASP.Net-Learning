@@ -6,169 +6,42 @@
 
 ### =========================
 
-GET {{server_HostAddress}}/api/users
+GET {{server_HostAddress}}/api/users?page=1
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2IiwiZW1haWwiOiJhcmp1bkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQXJqdW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTc5MDQwOTQyNCwiaXNzIjoic2VydmVyIiwiYXVkIjoic2VydmVyQ2xpZW50In0.lky0kz9p5n-4Uozbb7Cygiy_N2k-0RfxZax1mEnPsvo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZW1haWwiOiJheXVzaEBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQXl1c2giLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJVc2VyIiwiZXhwIjoxNzkwOTIzNjMyLCJpc3MiOiJ5b3VyLWFwaSIsImF1ZCI6InlvdXItY2xpZW50In0.z1cqb-7YCK-v1yV3TonH2P6exlO4ddb-aFmKvjsAz3M
 ###
-
-### =========================
-
-### GET - User By ID
-
-### =========================
 
 ### Existing user
 
-GET {{server_HostAddress}}/api/users/1
+GET {{server_HostAddress}}/api/users/1002
 Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZW1haWwiOiJheXVzaEBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQXl1c2giLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJVc2VyIiwiZXhwIjoxNzkwOTIzNjMyLCJpc3MiOiJ5b3VyLWFwaSIsImF1ZCI6InlvdXItY2xpZW50In0.z1cqb-7YCK-v1yV3TonH2P6exlO4ddb-aFmKvjsAz3M
 
-###
-
-### Another existing user
-
-GET {{server_HostAddress}}/api/users/2
-Accept: application/json
-
-###
-
-### User not found
-
-GET {{server_HostAddress}}/api/users/99
-Accept: application/json
-
-###
-
-### =========================
-
-### POST - Create User
-
-### =========================
-
-### Create user - valid request
-
-POST {{server_HostAddress}}/api/users
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1IiwiZW1haWwiOiJheXVzaEBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQXl1c2giLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiIiLCJleHAiOjE3OTA0MDkwNjIsImlzcyI6InNlcnZlciIsImF1ZCI6InNlcnZlckNsaWVudCJ9.N0J6yQMZ9XsJWZ_LswCB2nbgggDOvRwckcB9tGQC260
-
-
-{
-"name": "Rahul",
-"email": "rahul@gmail.com"
-}
-
-###
-
-### Create another user
-
-POST {{server_HostAddress}}/api/users
-Content-Type: application/json
-
-{
-"name": "Priya",
-"email": "[priya@gmail.com](mailto:priya@gmail.com)"
-}
-
-###
-
-### Create user - empty name
-
-POST {{server_HostAddress}}/api/users
-Content-Type: application/json
-
-{
-"name": "",
-"email": "[test@gmail.com](mailto:test@gmail.com)"
-}
-
-###
-
-### Create user - empty email
-
-POST {{server_HostAddress}}/api/users
-Content-Type: application/json
-
-{
-"name": "Test User",
-"email": ""
-}
-
-###
-
-### Create user - both empty
-
-POST {{server_HostAddress}}/api/users
-Content-Type: application/json
-
-{
-"name": "",
-"email": ""
-}
-
-###
-
-### =========================
 
 ### PUT - Update User
 
-### =========================
-
-### Update existing user
-
-GEt {{server_HostAddress}}/api/users/7
+PUT  {{server_HostAddress}}/api/users/7
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1IiwiZW1haWwiOiJheXVzaEBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQXl1c2giLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiIiLCJleHAiOjE3OTA0MDkwNjIsImlzcyI6InNlcnZlciIsImF1ZCI6InNlcnZlckNsaWVudCJ9.N0J6yQMZ9XsJWZ_LswCB2nbgggDOvRwckcB9tGQC260
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZW1haWwiOiJheXVzaEBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQXl1c2giLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJVc2VyIiwiZXhwIjoxNzkwOTIzNjMyLCJpc3MiOiJ5b3VyLWFwaSIsImF1ZCI6InlvdXItY2xpZW50In0.z1cqb-7YCK-v1yV3TonH2P6exlO4ddb-aFmKvjsAz3M
 
 {
 "name": "Arjun",
-"email": "arjun@gmail.com"
+"email": "arjun1@gmail.com"
 }
 
-###
-
-### Update another existing user
-
-PUT {{server_HostAddress}}/api/users/3
-Content-Type: application/json
-
-{
-"name": "Rahul Updated",
-"email": "[rahul.updated@gmail.com](mailto:rahul.updated@gmail.com)"
-}
-
-###
 
 ### Update user that doesn't exist
 
-PUT {{server_HostAddress}}/api/users/99
+PUT {{server_HostAddress}}/api/users/1006
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZW1haWwiOiJheXVzaEBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQXl1c2giLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJVc2VyIiwiZXhwIjoxNzkwOTIzNjMyLCJpc3MiOiJ5b3VyLWFwaSIsImF1ZCI6InlvdXItY2xpZW50In0.z1cqb-7YCK-v1yV3TonH2P6exlO4ddb-aFmKvjsAz3M
 
 {
 "name": "Unknown User",
-"email": "[unknown@gmail.com](mailto:unknown@gmail.com)"
+"email": "unknown@gmail.com"
 }
-
-###
-
-### =========================
 
 ### DELETE - Delete User
 
-### =========================
-
-### Delete existing user
-
 DELETE {{server_HostAddress}}/api/users/8
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2IiwiZW1haWwiOiJhcmp1bkBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQXJqdW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTc5MDQwOTQyNCwiaXNzIjoic2VydmVyIiwiYXVkIjoic2VydmVyQ2xpZW50In0.lky0kz9p5n-4Uozbb7Cygiy_N2k-0RfxZax1mEnPsvo
-
-
-###
-
-### Delete another existing user
-
-DELETE {{server_HostAddress}}/api/users/4
-
-###
-
-### Delete user that doesn't exist
-
-DELETE {{server_HostAddress}}/api/users/99
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZW1haWwiOiJheXVzaEBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQXl1c2giLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJVc2VyIiwiZXhwIjoxNzkwOTIzNjMyLCJpc3MiOiJ5b3VyLWFwaSIsImF1ZCI6InlvdXItY2xpZW50In0.z1cqb-7YCK-v1yV3TonH2P6exlO4ddb-aFmKvjsAz3M
